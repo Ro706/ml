@@ -12,13 +12,16 @@ diabetes = datasets.load_diabetes()
 # This is a regression task, so we will use the linear regression model.
 # The target is a continuous value, which is the disease progression one year after baseline.
 diabetes_X = diabetes.data[:, np.newaxis, 2]  # (442, 1)
-# diabetes_X = diabetes.data
+# diabetes_X = diabetes.data # All features (442, 10)
+# diabetes_X = diabetes.data[:, np.newaxis, 0]  # (442, 1) # Age
 
 
 diabetes_X_train = diabetes_X[:-30]  # (422, 1)
-diabetes_X_test = diabetes_X[-30:]  # (20, 1)
-diabetes_y_train = diabetes.target[:-30]  # (422,)
-diabetes_y_test = diabetes.target[-30:]  # (20,1)
+diabetes_X_test = diabetes_X[-30:]  # (20, ) this is the test set for the model
+# The training set is used to train the model, while the test set is used to evaluate its performance.
+diabetes_y_train = diabetes.target[:-30]  # (422,)  The target values for the training set (target is the disease progression one year after baseline)
+diabetes_y_test = diabetes.target[-30:]  # (20,)  The target values for the test set
+# The target values are the disease progression one year after baseline for the training and test sets.
 
 # Create linear regression object
 model = linear_model.LinearRegression()
