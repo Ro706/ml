@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 diabetes = datasets.load_diabetes()
 # dict_keys(['data', 'target', 'frame', 'DESCR', 'feature_names', 'data_filename', 'target_filename', 'data_module'])
 # print(diabetes.keys())
-# print(diabetes.data)  # (442, 10)
-# print(diabetes.DESCR)  # (442,)
+# print(diabetes.data)  # (442, 10) this is display the data set with 442 samples and 10 features (10 features are age, sex, bmi, bp, s1, s2, s3, s4, s5, s6) and the target is the disease progression one year after baseline
+print(diabetes.DESCR)  # (442,) this is the description of the data set with the target values (disease progression one year after baseline)
 
 # This is a regression task, so we will use the linear regression model.
 # The target is a continuous value, which is the disease progression one year after baseline.
