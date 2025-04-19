@@ -13,7 +13,7 @@ diabetes = datasets.load_diabetes()
 # The target is a continuous value, which is the disease progression one year after baseline.
 diabetes_X = diabetes.data[:, np.newaxis, 2]  # (442, 1)
 # diabetes_X = diabetes.data # All features (442, 10)
-# diabetes_X = diabetes.data[:, np.newaxis, 0]  # (442, 1) # Age
+# diabetes_X = diabetes.data  # (442, 1) # Age
 
 
 diabetes_X_train = diabetes_X[:-30]  # (422, 1)
@@ -45,7 +45,10 @@ print("intercept: ", model.intercept_)
 # The intercept_ attribute contains the intercept of the linear regression model. It represents the value of the target variable when all input features are zero.
 
 # Plot outputs
+plt.grid(True)
 plt.scatter(diabetes_X_test, diabetes_y_test,  color='black')
 plt.plot(diabetes_X_test, diabetes_y_pred, color='red', linewidth=3)
 plt.show()
-
+# The scatter() function is used to create a scatter plot of the test data. The x-axis represents the input features, and the y-axis represents the target values.
+# The plot() function is used to create a line plot of the predicted values. The x-axis represents the input features, and the y-axis represents the predicted target values.
+# The color and linewidth parameters are used to customize the appearance of the plot.
