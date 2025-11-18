@@ -1,7 +1,6 @@
 # Machine Learning
 
---- 
-## What is Machine Learning (ML)?
+### What is Machine Learning (ML)?
 
 Machine learning is a branch of artificial intelligence that teaches computers to learn patterns from data and make predictions or decisions without being explicitly programmed for each task.
 
@@ -17,7 +16,7 @@ Key ideas
 
 Basic caveat: performance depends on data quality, feature representation, model choice, and proper evaluation to avoid overfitting.
 
-## Setup 
+### Setup 
 ```shell
 conda create -n ml_env
 conda activate ml_env
@@ -27,7 +26,7 @@ conda install --file requirements.txt
 ```
 ---
 
-## what do you mean by this `train_test_split(x, y, test_size=0.2)`
+### what do you mean by this `train_test_split(x, y, test_size=0.2)`
 
 This function splits your dataset into two parts:
 
