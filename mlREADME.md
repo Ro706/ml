@@ -83,7 +83,8 @@ Selecting the right algorithm is based on data and problem characteristics.
 
       * **Convolutional Neural Networks (CNNs):** Primarily used for **image data**; layers include Convolution and Pooling.
 
-[Image of Convolutional Neural Network Architecture]
+<img width="3999" height="1178" alt="image" src="https://github.com/user-attachments/assets/0bd08e53-ae0b-4466-89bb-359b20edfe78" />
+
 
 ```
 * **Recurrent Neural Networks (RNNs):** Used for **sequence data** (e.g., text, time series); variations like **LSTM** and **GRU** improve memory.
