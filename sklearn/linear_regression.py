@@ -25,4 +25,4 @@ plt.ylabel("Predicted Values")
 plt.title("Actual vs Predicted Values - Linear Regression")
 plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='red', linestyle='--')  # Diagonal line
 plt.show()
-# joblib.dump(LR, "LinearRegressionModel.joblib")
+joblib.dump(LR, "LinearRegressionModel.joblib")
