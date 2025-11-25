@@ -1,95 +1,56 @@
-# **Machine Learning**
+# Crime Against Women in India: Analysis and Forecasting
 
-Machine Learning (ML) is a branch of Artificial Intelligence that enables computers to **learn patterns from data** and make predictions or decisions **without being explicitly programmed**.
+## Introduction
 
----
+This project aims to analyze the trends of crimes against women in India using a dataset of reported cases. The project involves exploratory data analysis (EDA) to understand the distribution and trends of different crimes, and time series forecasting to predict future crime rates.
 
-## 🧠 **What is Machine Learning?**
+## Dataset
 
-Machine Learning focuses on discovering relationships in data so that a system can:
+The dataset used in this project is `crime_aginest_women.csv`, which contains data on various crimes against women reported in different states and districts of India from 2001 to 2014.
 
-* **Predict outcomes**
-* **Recognize patterns**
-* **Make decisions automatically**
+The dataset includes the following columns:
+- `year`: The year the crimes were reported.
+- `state_name`: The name of the state.
+- `district_name`: The name of the district.
+- Various columns for different types of crimes, such as `murder_with_rape_gang_rape`, `dowry_deaths`, `acid_attack`, etc.
 
-### **Key Concepts**
+## Exploratory Data Analysis
 
-#### **ML Paradigms**
+The EDA is performed in the `eda/eda.py` script. The script performs the following steps:
+1.  Loads the dataset and displays summary statistics.
+2.  Checks for missing values.
+3.  Generates and saves the following plots in the `eda/plots` directory:
+    *   `crime_distribution.png`: A bar plot showing the distribution of different crimes.
+    *   `total_crimes_over_years.png`: A line plot showing the trend of total crimes over the years.
+    *   `severe_crimes_over_years.png`: A line plot showing the trend of some of the most severe crimes over the years.
 
-* **Supervised Learning** – Learn from labeled data (e.g., classification, regression)
-* **Unsupervised Learning** – Find patterns in unlabeled data (e.g., clustering, dimensionality reduction)
-* **Reinforcement Learning** – Learn to take actions that maximize reward
+## Time Series Forecasting
 
-#### **Common ML Tasks**
+The `eda/model.py` script performs time series forecasting to predict the total number of crimes for the next 5 years. The script uses Holt's linear trend model for forecasting. The forecast plot is saved as `eda/plots/forecast.png`.
 
-* Classification
-* Regression
-* Clustering
-* Recommendation
-* Anomaly Detection
+## Regression Analysis
 
-#### **Typical ML Workflow**
+The `eda/eda-2.py` script builds a linear regression model to predict the total number of crimes based on a set of selected crime features. The script also generates a scatter plot of actual vs. predicted values, which is saved as `eda/plots/actual_vs_predicted.png`.
 
-1. Collect & clean data
-2. Split into training/validation/test sets
-3. Select and train model
-4. Evaluate metrics
-5. Deploy & monitor
+## How to Run
 
-#### **Popular ML Libraries**
+1.  **Install the required libraries:**
+    ```
+    pip install -r requirements.txt
+    ```
+2.  **Run the EDA script:**
+    ```
+    python eda/eda.py
+    ```
+3.  **Run the time series forecasting script:**
+    ```
+    python eda/model.py
+    ```
+4.  **Run the regression analysis script:**
+    ```
+    python eda/eda-2.py
+    ```
 
-* Scikit-learn
-* TensorFlow
-* PyTorch
-* XGBoost
+## Other Files
 
-> ⚠️ ML performance heavily depends on data quality, good features, correct model choice, and avoiding overfitting.
-
----
-
-## ⚙️ **Environment Setup**
-
-Create and manage a Conda environment:
-
-```sh
-conda create -n ml_env
-conda activate ml_env
-conda deactivate
-```
-
-Install required packages:
-
-```sh
-conda install --file requirements.txt
-```
-
----
-
-## ✂️ **What does `train_test_split(x, y, test_size=0.2)` mean?**
-
-This function is used to **split your dataset** into:
-
-* **Training set (80%)** – used to train the model
-* **Testing set (20%)** – used to evaluate the model on unseen data
-
-### **Parameter meanings**
-
-* **`x`** → Input features (your dataset’s independent variables)
-* **`y`** → Labels/targets (the values the model must learn to predict)
-* **`test_size=0.2`** → 20% of the dataset is used for testing
-
-### **Example**
-
-```python
-from sklearn.model_selection import train_test_split
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
-```
-
-This returns:
-
-* `x_train`, `y_train` → training data
-* `x_test`, `y_test` → testing data
-
----
-
+The `sklearn` directory and the files `MLtask.md`, `mlREADME.md`, and the original `README.md` contain generic machine learning examples and are not part of this project.
