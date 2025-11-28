@@ -256,47 +256,106 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load data
+# 1. Load data
+# Replace 'data.csv' with your actual file path
 df = pd.read_csv("data.csv")
 
-# Basic info
+# 2. Basic info
+print("--- Shape ---")
 print(df.shape)
+print("\n--- Info ---")
 print(df.info())
+print("\n--- Statistics ---")
 print(df.describe())
 
-# Missing values
+# 3. Check Missing values
+print("\n--- Missing Values Before Fix ---")
 print(df.isnull().sum())
-sns.heatmap(df.isnull(), cbar=False)
+sns.heatmap(df.isnull(), cbar=False, cmap='viridis')
+plt.title("Missing Values Map")
 plt.show()
 
-# Duplicates
-print(df.duplicated().sum())
+# ---------------------------------------------------------
+# 4. HANDLE MISSING VALUES (The New Section)
+# ---------------------------------------------------------
+
+# A. Numerical Data: Replace with Median
+# We use Median because it is robust to outliers.
+num_cols = df.select_dtypes(include=np.number).columns
+for col in num_cols:
+    if df[col].isnull().sum() > 0:
+        median_val = df[col].median()
+        df[col] = df[col].fillna(median_val)
+        print(f"Filled missing numeric values in '{col}' with Median: {median_val}")
+
+# B. Categorical Data: Replace with Mode
+# We use Mode (most frequent value) for text/categories.
+cat_cols = df.select_dtypes(include='object').columns
+for col in cat_cols:
+    if df[col].isnull().sum() > 0:
+        mode_val = df[col].mode()[0]
+        df[col] = df[col].fillna(mode_val)
+        print(f"Filled missing categorical values in '{col}' with Mode: {mode_val}")
+
+# Verify clean-up
+print("\n--- Missing Values After Fix ---")
+print(df.isnull().sum().sum())
+# ---------------------------------------------------------
+
+# 5. Duplicates
+print("\n--- Duplicates ---")
+print(f"Duplicates found: {df.duplicated().sum()}")
 df = df.drop_duplicates()
+print("Duplicates dropped.")
 
-# Univariate Analysis
-df.hist(figsize=(12,8))
+# 6. Univariate Analysis
+# Histograms for all numerical columns
+df.hist(figsize=(12, 8), bins=20)
+plt.suptitle("Univariate Analysis: Numerical Distributions")
 plt.show()
 
-# Categorical Countplots
+# 7. Categorical Countplots
+# Loops through all object columns to show frequency
 for col in df.select_dtypes(include='object').columns:
-    sns.countplot(x=col, data=df)
-    plt.show()
+    # Optional: check if too many categories exist to avoid messy plots
+    if df[col].nunique() < 20: 
+        plt.figure(figsize=(8, 4))
+        sns.countplot(x=col, data=df)
+        plt.title(f"Distribution of {col}")
+        plt.xticks(rotation=45)
+        plt.show()
+    else:
+        print(f"Skipping plot for {col}: too many unique values ({df[col].nunique()})")
 
-# Bivariate Analysis
+# 8. Bivariate Analysis
+# Pairplot (Scatter plots for all numerical pairs)
+print("Generating Pairplot...")
 sns.pairplot(df)
 plt.show()
 
-plt.figure(figsize=(10,6))
-sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
+# Correlation Heatmap
+plt.figure(figsize=(10, 6))
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap='coolwarm', fmt=".2f")
+plt.title("Correlation Heatmap")
 plt.show()
 
-# Outliers (IQR)
+# 9. Outliers (IQR Method)
+print("\n--- Outlier Detection (IQR) ---")
 for col in df.select_dtypes(include=np.number).columns:
     Q1 = df[col].quantile(0.25)
     Q3 = df[col].quantile(0.75)
     IQR = Q3 - Q1
-    outliers = df[(df[col] < Q1 - 1.5*IQR) | (df[col] > Q3 + 1.5*IQR)]
-    print(col, "outliers:", len(outliers))
+    
+    # Define bounds
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    
+    outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)]
+    
+    if len(outliers) > 0:
+        print(f"{col}: {len(outliers)} outliers found")
+    else:
+        print(f"{col}: No outliers")
 ```
 
 
