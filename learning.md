@@ -25,3 +25,46 @@ The model learns through trial and error, receiving rewards for good actions and
 Each learning type suits different problem scenarios. Supervised is best when labels exist, unsupervised when discovering patterns, and reinforcement learning when interacting with an environment. <br>
 
 ---
+
+# Preparing an ML Model
+
+This step involves all activities before the actual model training. It includes:
+
+ - Understanding the problem (classification, regression, clustering).
+
+ - Collecting data from databases, sensors, surveys, or web scraping.
+
+ - Cleaning data by removing errors, duplicates, missing values, and noise.
+
+ - Splitting data into training, validation, and test sets.
+
+ - Choosing an algorithm based on the problem type and dataset size.
+
+ - Feature engineering, scaling, and dimensionality reduction.
+
+A well-prepared dataset leads to a better-performing model, while poor preparation results in inaccurate predictions.
+
+---
+
+# Data Pre-processing
+Data pre-processing is essential because raw data usually contains noise, missing values, or inconsistent formats. It improves model accuracy and training efficiency.
+
+Common techniques include:
+
+ - Handling missing values: mean/median imputation, forward fill, deleting rows.
+
+ - Encoding categorical variables: One-Hot Encoding, Label Encoding.
+
+ - Feature scaling:
+
+  - Standardization: makes mean = 0, variance = 1.
+
+  - Normalization: scales values between 0 and 1.
+
+ - Outlier detection: using IQR or z-score.
+
+ - Data transformation: log transform, Box-Cox transform.
+
+ - Balancing imbalanced data: SMOTE, undersampling, oversampling.
+
+Pre-processing drastically impacts learning—unprocessed data often produces
