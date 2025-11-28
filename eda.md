@@ -361,3 +361,39 @@ for col in df.select_dtypes(include=np.number).columns:
 
 
 If you want, I can also generate a **Jupyter Notebook (.ipynb)** version of this EDA or tailor it for a **specific dataset**.
+
+## How to handle missing value from the given dataset
+
+### 1. Numerical Data (Continuous or Discrete)
+
+For numerical columns, you must examine the **distribution** of the existing, non-missing values, typically by viewing a histogram.
+
+| Statistical Measure | When to Use It | Why Choose It | How to Code (Pandas) |
+| :--- | :--- | :--- | :--- |
+| **Median** | Data is **skewed** (not symmetrical) or contains **outliers** (e.g., income, house prices). | It's **robust** (unaffected by extreme values), ensuring the filled value doesn't distort the true center of the data. | `df[col].fillna(df[col].median())` |
+| **Mean** | Data follows a **Normal Distribution** (bell curve) and has **no significant outliers**. | It uses all available data points and is the statistically correct center for symmetric data. | `df[col].fillna(df[col].mean())` |
+| **Random** (Mean $\pm$ Std Dev) | You need to preserve the **variance** (spread) of the data, especially if many values are missing. | It avoids adding a single identical value, which artificially shrinks the variance. | `np.random.uniform(mean - std, mean + std, size)` |
+
+To help you visualize the difference between these distributions:
+<img width="3792" height="2744" alt="image" src="https://github.com/user-attachments/assets/1d6bf7f9-4fc6-420b-beab-07d84717665b" />
+
+---
+
+### 2. Categorical Data (Text or Ordinal)
+
+For non-numeric data, you cannot calculate an average, so the methods focus on frequency or preservation of the 'missing' state.
+
+| Statistical Measure | When to Use It | Why Choose It | How to Code (Pandas) |
+| :--- | :--- | :--- | :--- |
+| **Mode** | Missing percentage is **low** (e.g., less than 5%) and you want the simplest solution. | It represents the **most likely** existing value. | `df[col].fillna(df[col].mode()[0])` |
+| **Arbitrary Value** | Missing percentage is **high** (e.g., over 10%) or the fact that the data is missing is itself important. | Filling with a unique string like **"Unknown"** or **"Missing"** preserves the information that the original data was unavailable, turning "missingness" into its own category. | `df[col].fillna('Missing')` |
+
+---
+
+### 🔑 Decision Checklist
+
+1.  **Check Data Type:** Is the column numeric or categorical?
+2.  **Check Missing %:** If the column is missing very little data (e.g., $< 2-3\%$), consider **dropping the rows** (`df.dropna(subset=[col])`) for that column instead of imputing, as the impact on analysis is negligible.
+3.  **Plot (If Numeric):** Generate a **histogram** of the existing data. If it looks symmetrical (like a bell curve), use the **Mean**. If it is heavily skewed or shows clear outliers, use the **Median**.
+
+
