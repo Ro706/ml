@@ -6,7 +6,7 @@ This project aims to analyze the trends of crimes against women in India using a
 
 ## Dataset
 
-The dataset used in this project is `dataset/crime_against_women.csv`, which contains data on various crimes against women reported in different states and districts of India from 2017 to 2019.
+The dataset used in this project is `dataset/crime_against_women.csv`, which contains data on various crimes against women reported in different states and districts of India from 2017 to 2022.
 
 ### `crime_against_women.csv` Column Descriptions:
 
